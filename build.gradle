@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.gendarme'
-version = '1.0.0'
+version = '1.0.1'
 description = 'role-converter'
 
 java {
@@ -38,4 +38,7 @@ tasks.named('test') {
 tasks.withType(Javadoc) {
     options.addStringOption('Xdoclint:none', '-quiet')
     failOnError = false
+}
+tasks.named('publishToMavenLocal') {
+    dependsOn 'publishMavenJavaPublicationToMavenLocal'
 }
