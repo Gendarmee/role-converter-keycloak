@@ -1,11 +1,11 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'maven-publish'
 }
 
 group = 'com.gendarme'
 version = '1.0.1'
-description = 'role-converter'
+description = 'Keycloak JWT role converter for Spring Security'
 
 java {
     toolchain {
@@ -20,25 +20,27 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-security:3.4.4'
-    implementation 'org.springframework.security:spring-security-oauth2-resource-server:6.4.4'
-    implementation 'org.springframework.security:spring-security-oauth2-jose:6.4.4'
-
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.4.4'
+    api 'org.springframework.boot:spring-boot-autoconfigure:3.4.4'
+    api 'org.springframework.security:spring-security-oauth2-resource-server:6.4.4'
+    api 'org.springframework.security:spring-security-oauth2-jose:6.4.4'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.4.4'
     testImplementation 'org.springframework.security:spring-security-test:6.4.4'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.2'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
 
-tasks.withType(Javadoc) {
+tasks.withType(Javadoc).configureEach {
     options.addStringOption('Xdoclint:none', '-quiet')
     failOnError = false
-}
-tasks.named('publishToMavenLocal') {
-    dependsOn 'publishMavenJavaPublicationToMavenLocal'
 }
