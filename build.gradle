@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.gendarme'
-version = '1.0.1'
+version = '1.0.0'
 description = 'Keycloak JWT role converter for Spring Security'
 
 java {
