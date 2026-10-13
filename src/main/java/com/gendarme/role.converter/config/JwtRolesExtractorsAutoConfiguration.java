@@ -2,16 +2,16 @@ package com.gendarme.role.converter.config;
 
 import com.gendarme.role.converter.extractor.impl.KeycloakClientRolesExtractor;
 import com.gendarme.role.converter.extractor.impl.KeycloakRealmRolesExtractor;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
+@AutoConfiguration
 public class JwtRolesExtractorsAutoConfiguration {
 
     @Bean
-    @ConditionalOnMissingBean
+    @ConditionalOnMissingBean(KeycloakRealmRolesExtractor.class)
     @ConditionalOnProperty(
             prefix = "converter.keycloak",
             name = "realm-roles-enabled",
@@ -23,7 +23,7 @@ public class JwtRolesExtractorsAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean
+    @ConditionalOnMissingBean(KeycloakClientRolesExtractor.class)
     @ConditionalOnProperty(prefix = "converter.keycloak", name = "client-id")
     public KeycloakClientRolesExtractor keycloakClientRolesExtractor(
             ConverterProperties properties
