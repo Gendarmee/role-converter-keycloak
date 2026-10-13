@@ -4,7 +4,7 @@ plugins {
 }
 
 group = findProperty('group') ?: 'com.gendarme'
-version = findProperty('version') ?: '1.0.0'
+version = findProperty('version') ?: '1.0.2'
 description = 'Keycloak JWT role converter for Spring Security'
 
 java {
