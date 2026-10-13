@@ -2,22 +2,22 @@ package com.gendarme.role.converter.config;
 
 import com.gendarme.role.converter.extractor.JwtClaimRolesExtractor;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
-import java.util.Collections;
 import java.util.List;
 
-@Configuration
+@AutoConfiguration
 public class KeycloakConverterAutoConfiguration {
+
     @Bean
-    @ConditionalOnMissingBean
+    @ConditionalOnMissingBean(KeycloakConverter.class)
     public KeycloakConverter keycloakConverter(
-            ObjectProvider<List<JwtClaimRolesExtractor>> extractorsProvider
+            ObjectProvider<JwtClaimRolesExtractor> extractorsProvider
     ) {
         List<JwtClaimRolesExtractor> extractors =
-                extractorsProvider.getIfAvailable(Collections::emptyList);
+                extractorsProvider.orderedStream().toList();
 
         return new KeycloakConverter(extractors);
     }
