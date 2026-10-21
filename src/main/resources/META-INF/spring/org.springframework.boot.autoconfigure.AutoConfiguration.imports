@@ -1,3 +1,2 @@
 com.gendarme.role.converter.config.KeycloakConverterAutoConfiguration
-com.gendarme.role.converter.config.JwtRolesExtractorsAutoConfiguration
 com.gendarme.role.converter.config.ConverterPropertiesConfig
